@@ -5,6 +5,39 @@
     <title>LightsOff</title>
 </head>
 <body>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+      
+      <style>
+        #map {
+          height: 500px;
+          width: 100%;
+        }
+      </style>
+    </head>
+    <body>
     
+      <h1>DEFICIENDIA DE ALUMBRADO PÚBLICO
+      </h1>
+      <div id="map"></div>
+    
+      <!-- Script de Leaflet -->
+      <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+      <script>
+        // Inicializar el mapa
+        var map = L.map('map').setView([40.4168, -3.7038], 13); // Coordenadas de Madrid
+    
+        // Capa base de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+    
+        // Agregar un marcador
+        L.marker([4.659649469484426, -74.12240616123682]).addTo(map)
+          .bindPopup('¡Hola desde Madrid!')
+          .openPopup();
+      </script>
+    
+    </body>
+    </html>  
 </body>
 </html>
