@@ -1,145 +1,53 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightsOff</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <style>
-        /* Barra de Navegación */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav {
-            background-color: #333;
-            padding: 10px;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
-
-        /* Mapa */
-        #map {
-            height: 500px;
-            width: 100%;
-        }
-
-        /* Secciones */
-        section {
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        #acerca-de {
-            background-color: #f4f4f4;
-        }
-
-        #descripcion {
-            background-color: #e9e9e9;
-        }
-
-        #autor {
-            background-color: #dcdcdc;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LightsOff</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
 
-    <!-- Barra de Navegación -->
-    <nav>
-        <ul>
-            <li><a href="#acerca-de">Acerca de</a></li>
-            <li><a href="#descripcion">Descripción</a></li>
-            <li><a href="#autor">Autor</a></li>
-        </ul>
-    </nav>
+  <nav>
+    <ul>
+      <li><a href="acerca-de.html">Acerca de</a></li>
+      <li><a href="descripcion.html">Descripción</a></li>
+      <li><a href="autor.html">Autor</a></li>
+    </ul>
+  </nav>
 
-    <!-- Secciones -->
-    <section id="acerca-de">
-        <h2>Acerca de</h2>
-        <p>Información sobre el sitio y su propósito.</p>
-    </section>
+  <h1>Deficiencia de alumbrado público</h1>
 
-    <section id="descripcion">
-        <h2>Descripción</h2>
-        <p>Detalles sobre la función y cómo utilizar la aplicación LightsOff.</p>
-    </section>
+  <div id="map"></div>
 
-    <section id="autor">
-        <h2>Autor</h2>
-        <p>Información sobre el autor de esta aplicación.</p>
-    </section>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([4.6676, -74.1227], 15);
 
-    <h1>Deficiencia de alumbrado público</h1>
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-    <!-- Contenedor para el mapa -->
-    <div id="map"></div>
+    L.marker([4.6596, -74.1224]).addTo(map)
+      .bindPopup('Conjunto Residencial los cerros')
+      .openPopup();
 
-    <!-- Script de Leaflet -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        // Inicializar el mapa
-        var map = L.map('map').setView([40.4168, -3.7038], 13); // Coordenadas de Madrid
+    var latlngs = [
+      [4.660006292237558, -74.12358791050606],
+      [4.662065301482043, -74.12147143592206],
+      [4.660001030704979, -74.11917546102086],
+      [4.657777345784757, -74.1214065174826],
+      [4.660006292237558, -74.12358791050606]
+    ];
 
-        // Capa base de OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+    var polygon = L.polygon(latlngs, {
+      color: 'blue',
+      fillColor: 'lightblue',
+      fillOpacity: 0.4
+    }).addTo(map);
 
-        // Agregar un marcador
-        L.marker([4.659649469484426, -74.12240616123682]).addTo(map)
-            .bindPopup('Conjunto Residencial los cerros')
-            .openPopup();
-
-        // Coordenadas del polígono (puedes modificar estas coordenadas)
-        var latlngs = [
-          [4.660006292237558, -74.12358791050606],  // Coordenada 1
-          [4.662065301482043, -74.12147143592206],  // Coordenada 2
-          [4.660001030704979, -74.11917546102086],  // Coordenada 3
-          [4.657777345784757, -74.1214065174826],  // Coordenada 4
-          [4.660006292237558, -74.12358791050606]   // Coordenada 5 (debe ser igual a la primera para cerrar el polígono)
-        ];
-
-        // Crear y agregar el polígono al mapa
-        var polygon = L.polygon(latlngs, { color: 'blue' }).addTo(map);
-
-        // Agregar un popup al polígono
-        polygon.bindPopup("Zona del polígono en La Felicidad").openPopup();
-    </script>
-
-    <!-- JavaScript para el desplazamiento suave -->
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener("click", function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute("href")).scrollIntoView({
-                    behavior: "smooth"
-                });
-            });
-        });
-    </script>
-
+    polygon.bindPopup("Zona del polígono en La Felicidad").openPopup();
+  </script>
 </body>
 </html>
