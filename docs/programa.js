@@ -1,24 +1,75 @@
-var map = L.map('map').setView([4.667658766670203, -74.12272803489356], 13);
+<!DOCTYPE html>
+<html lang="es">
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LightsOff</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* Barra de Navegación */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
- var puntosPoligono = [
-    [4.660006292237558, -74.12358791050606],  // Coordenada 1
-    [4.662065301482043, -74.12147143592206],  // Coordenada 2
-    [4.660001030704979, -74.11917546102086],  // Coordenada 3
-    [4.657777345784757, -74.1214065174826],  // Coordenada 4
-    [4.660006292237558, -74.12358791050606]   // Coordenada 5 (debe ser igual a la primera para cerrar el polígono)
-];
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
 
-// Crear el polígono y añadirlo al mapa
-var poligono = L.polygon(puntosPoligono, {
-    color: 'blue',        // Color del borde
-    fillColor: 'lightblue', // Color de relleno
-    fillOpacity: 0.4      // Opacidad del relleno
-}).addTo(map);
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
 
-// Agregar un popup al polígono
-poligono.bindPopup("Zona del polígono en La felicidad").openPopup();
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mapa */
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+
+        /* Secciones */
+        section {
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        #acerca-de {
+            background-color: #f4f4f4;
+        }
+
+        #descripcion {
+            background-color: #e9e9e9;
+        }
+
+        #autor {
+            background-color: #dcdcdc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación -->
+    <nav>
+        <ul>
+            <li><a href="#acerca-de">Acerca de</a></li>
